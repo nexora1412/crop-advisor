@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CropAdvisor AI - किसान का डिजिटल साथी</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="header">
+    <div style="font-size:40px">🌾</div>
+    <div>
+        <h1>CropAdvisor AI — किसान का डिजिटल साथी</h1>
+        <p>Real-time Farming • Personal Assistant • Government Schemes • Legal Rights • Powered by ASI:One AI</p>
+    </div>
+</div>
+
+<div class="tabs">
+    <div class="tab active" onclick="showTab('farm', this)">🌱 Farm Analysis</div>
+    <div class="tab" onclick="showTab('assistant', this)">🤖 Personal Assistant</div>
+    <div class="tab" onclick="showTab('finance', this)">💰 Financial Help</div>
+    <div class="tab" onclick="showTab('legal', this)">⚖️ Legal Rights</div>
+</div>
+
+<!-- TAB 1: FARM ANALYSIS -->
+<div id="tab-farm" class="tab-content active">
+<div class="container">
+<div class="grid-2">
+    <div class="card">
+        <h2>🌱 Farm Details</h2>
+        <label>Language / भाषा</label>
+        <select id="language" onchange="updateLangBadge()">
+            <option value="english">English</option>
+            <option value="hindi">Hindi (हिंदी)</option>
+            <option value="marathi">Marathi (मराठी)</option>
+            <option value="tamil">Tamil (தமிழ்)</option>
+            <option value="telugu">Telugu (తెలుగు)</option>
+            <option value="kannada">Kannada (ಕನ್ನಡ)</option>
+            <option value="punjabi">Punjabi (ਪੰਜਾਬੀ)</option>
+            <option value="gujarati">Gujarati (ગુજરાતી)</option>
+            <option value="bengali">Bengali (বাংলা)</option>
+        </select>
+        <label>Crop / फसल</label>
+        <input type="text" id="crop" placeholder="wheat, rice, cotton, sugarcane..." />
+        <label>Region / State</label>
+        <input type="text" id="region" placeholder="Vidarbha Maharashtra, Punjab..." />
+        <label>Nearest City</label>
+        <input type="text" id="city" placeholder="Nagpur, Amritsar, Pune..." />
+        <label>Soil Type / मिट्टी</label>
+        <select id="soil">
+            <option value="black soil (Regur)">Black Soil - काली मिट्टी</option>
+            <option value="red soil">Red Soil - लाल मिट्टी</option>
+            <option value="alluvial soil">Alluvial Soil - जलोढ़ मिट्टी</option>
+            <option value="sandy soil">Sandy Soil - रेतीली मिट्टी</option>
+            <option value="clay soil">Clay Soil - चिकनी मिट्टी</option>
+            <option value="laterite soil">Laterite Soil</option>
+        </select>
+        <label>Farm Size</label>
+        <select id="farmsize">
+            <option value="1 acre">1 Acre</option>
+            <option value="2 acres">2 Acres</option>
+            <option value="5 acres">5 Acres</option>
+            <option value="10 acres">10 Acres</option>
+            <option value="20+ acres">20+ Acres</option>
+        </select>
+        <button class="btn" onclick="getAdvice()" id="analyzeBtn">🔍 Get Farming Advice</button>
+        <div class="loading" id="loading">
+            <div class="spinner">🌀</div>
+            <p style="margin-top:10px">Fetching live weather, soil & market data...<br>Analyzing with ASI:One AI...</p>
+        </div>
+    </div>
+    <div class="card">
+        <h2>📊 Live Analysis Result</h2>
+        <div id="result" class="result-box"></div>
+        <div id="placeholder" style="color:#aaa;text-align:center;padding:40px 0;font-size:14px">
+            <div style="font-size:50px">🌾</div>
+            <p style="margin-top:10px">Fill in your farm details and click<br><b>Get Farming Advice</b></p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- TAB 2: PERSONAL ASSISTANT -->
+<div id="tab-assistant" class="tab-content">
+<div class="container">
+<div class="grid-2">
+    <div class="card">
+        <h2>🤖 Personal Farm Assistant
+            <span id="langBadge" style="font-size:12px;background:#e8f5e9;color:#2d6a4f;padding:3px 10px;border-radius:20px;margin-left:8px">🌐 English</span>
+        </h2>
+        <div class="chat-messages" id="chatMessages">
+            <div class="msg bot">
+                <div class="msg-name">🌾 CropAdvisor AI</div>
+                <div class="bubble">Namaste! 🙏 I am your personal farming assistant.
+
+Ask me ANYTHING about your farm:
+🐛 Insects & pests
+🍂 Diseases & yellow leaves
+💧 Irrigation problems
+🌿 Desi nuskhe (organic remedies)
+🌾 Harvest timing
+💰 Mandi prices & selling tips
+
+I will answer in your chosen language!</div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <div class="quick-btns">
+            <p>Quick questions:</p>
+            <span class="qq" onclick="quickAsk('There are insects on my wheat field. They are in small numbers. What should I do? Give me both chemical and desi nuskha solution.')">🐛 Insects on field</span>
+            <span class="qq" onclick="quickAsk('My crop leaves are turning yellow. What is the problem and how to fix it?')">🍂 Yellow leaves</span>
+            <span class="qq" onclick="quickAsk('When should I irrigate my crop? What is the best time and how much water?')">💧 Irrigation help</span>
+            <span class="qq" onclick="quickAsk('Give me best desi nuskha for pest control that I can make at home')">🌿 Desi nuskha</span>
+            <span class="qq" onclick="quickAsk('There is fungal disease on my crop. White powder on leaves. What to do?')">🍄 Fungal disease</span>
+            <span class="qq" onclick="quickAsk('What is the best time to harvest and how do I know my crop is ready?')">🌾 Harvest time</span>
+            <span class="qq" onclick="quickAsk('Rats are destroying my field at night. How to get rid of them?')">🐀 Rats in field</span>
+            <span class="qq" onclick="quickAsk('My soil is looking dry and cracked. What should I do before sowing?')">🌍 Dry soil</span>
+        </div>
+        <div class="chat-row">
+            <input type="text" id="chatInput" placeholder="Type your farming question..." onkeypress="if(event.key==='Enter') sendChat()" />
+            <button class="chat-send" onclick="sendChat()">Send ➤</button>
+        </div>
+    </div>
+    <div class="card">
+        <h2>📋 Common Problems Guide</h2>
+        <div style="font-size:13px;line-height:1.9;color:#333">
+            <div style="background:#fff8e1;border-left:4px solid #f59e0b;padding:12px;border-radius:6px;margin-bottom:12px">
+                <b>🐛 Few insects on field?</b><br>
+                • Desi nuskha: Neem oil (5ml) + soap (2ml) in 1L water<br>
+                • Also try: Garlic + chili paste diluted in water<br>
+                • Chemical: Use only if 30%+ plants affected
+            </div>
+            <div style="background:#fef2f2;border-left:4px solid #ef4444;padding:12px;border-radius:6px;margin-bottom:12px">
+                <b>🍂 Yellow leaves?</b><br>
+                • Nitrogen deficiency → Apply Urea 10kg/acre<br>
+                • Waterlogging → Improve drainage immediately<br>
+                • Fungal → Spray Mancozeb 2g/L water
+            </div>
+            <div style="background:#f0fdf4;border-left:4px solid #22c55e;padding:12px;border-radius:6px;margin-bottom:12px">
+                <b>💧 Irrigation timing?</b><br>
+                • Best: Early morning (6-8 AM) or evening (5-7 PM)<br>
+                • Never irrigate during peak heat (11AM-3PM)<br>
+                • Check soil: Insert finger 2 inches — if dry, irrigate
+            </div>
+            <div style="background:#eff6ff;border-left:4px solid #3b82f6;padding:12px;border-radius:6px">
+                <b>🌿 Universal Desi Pest Spray</b><br>
+                • 250g neem leaves + boil in 5L water<br>
+                • Cool, strain, add 10ml soap liquid<br>
+                • Spray morning or evening. Repeat every 7 days!
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<!-- TAB 3: FINANCIAL HELP -->
+<div id="tab-finance" class="tab-content">
+<div class="container">
+    <div class="stat-row">
+        <div class="stat"><div class="num">₹6,000</div><div class="lbl">PM-KISAN annual benefit</div></div>
+        <div class="stat"><div class="num">4%</div><div class="lbl">KCC loan interest rate</div></div>
+        <div class="stat"><div class="num">85%</div><div class="lbl">Crop insurance subsidy</div></div>
+    </div>
+    <div class="grid-2">
+        <div class="card">
+            <h2>🏦 Get Personalized Financial Advice</h2>
+            <label>Your State / राज्य</label>
+            <input type="text" id="finState" placeholder="Maharashtra, Punjab, UP..." />
+            <label>Land Size</label>
+            <select id="finLand">
+                <option value="less than 1 acre (marginal farmer)">Less than 1 acre (Marginal)</option>
+                <option value="1-2 acres (small farmer)">1-2 acres (Small)</option>
+                <option value="2-5 acres (medium farmer)">2-5 acres (Medium)</option>
+                <option value="5+ acres (large farmer)">5+ acres (Large)</option>
+            </select>
+            <label>What do you need help with?</label>
+            <select id="finNeed">
+                <option value="crop loan at low interest">Low Interest Crop Loan</option>
+                <option value="government subsidy for seeds and fertilizer">Seeds & Fertilizer Subsidy</option>
+                <option value="crop insurance">Crop Insurance</option>
+                <option value="equipment subsidy for tractor or pump">Equipment Subsidy</option>
+                <option value="all available government schemes">All Available Schemes</option>
+                <option value="emergency financial help after crop loss">Emergency Help After Crop Loss</option>
+            </select>
+            <label>Language / भाषा</label>
+            <select id="finLang">
+                <option value="english">English</option>
+                <option value="hindi">Hindi (हिंदी)</option>
+                <option value="marathi">Marathi (मराठी)</option>
+                <option value="tamil">Tamil</option>
+                <option value="telugu">Telugu</option>
+            </select>
+            <button class="btn" onclick="getFinancialAdvice()" id="finBtn">💰 Get Financial Guidance</button>
+            <div class="loading" id="finLoading"><div class="spinner">🌀</div><p style="margin-top:8px">Finding best schemes for you...</p></div>
+            <div class="result-box" id="finResult"></div>
+        </div>
+        <div class="card">
+            <h2>📋 Key Government Schemes</h2>
+            <div class="scheme-card">
+                <span class="badge badge-green">✅ All Farmers</span>
+                <h3>PM-KISAN Samman Nidhi</h3>
+                <p>₹6,000/year directly in your bank account in 3 installments.</p>
+            </div>
+            <div class="scheme-card">
+                <span class="badge badge-blue">🏦 Loan</span>
+                <h3>Kisan Credit Card (KCC)</h3>
+                <p>Crop loans up to ₹3 lakh at only 4% interest. Apply at any bank.</p>
+            </div>
+            <div class="scheme-card">
+                <span class="badge badge-orange">🛡️ Insurance</span>
+                <h3>PM Fasal Bima Yojana</h3>
+                <p>Crop insurance with only 1.5-2% premium. Govt pays 85%+.</p>
+            </div>
+            <div class="scheme-card">
+                <span class="badge badge-green">⚙️ Pension</span>
+                <h3>PM Kisan Mandhan Yojana</h3>
+                <p>₹55/month gives ₹3,000/month pension after age 60.</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- TAB 4: LEGAL RIGHTS -->
+<div id="tab-legal" class="tab-content">
+<div class="container">
+<div class="grid-2">
+    <div class="card">
+        <h2>⚖️ Know Your Legal Rights</h2>
+        <label>Your State</label>
+        <input type="text" id="legalState" placeholder="Maharashtra, Punjab..." />
+        <label>What legal issue do you face?</label>
+        <select id="legalIssue">
+            <option value="MSP - Minimum Support Price rights">MSP Rights (Minimum Price)</option>
+            <option value="land rights and protection from illegal acquisition">Land Rights Protection</option>
+            <option value="mandi and APMC rules - where I can sell my crop">Where Can I Sell My Crop</option>
+            <option value="crop loan waiver eligibility">Loan Waiver Eligibility</option>
+            <option value="rights when crop is damaged by someone">Crop Damage by Others</option>
+            <option value="water rights and irrigation disputes">Water & Irrigation Rights</option>
+            <option value="tenant farmer rights if I farm someone else land">Tenant Farmer Rights</option>
+            <option value="how to file complaint against corrupt officials">File Complaint Against Officials</option>
+        </select>
+        <label>Language / भाषा</label>
+        <select id="legalLang">
+            <option value="english">English</option>
+            <option value="hindi">Hindi (हिंदी)</option>
+            <option value="marathi">Marathi (मराठी)</option>
+            <option value="tamil">Tamil</option>
+            <option value="telugu">Telugu</option>
+        </select>
+        <button class="btn" onclick="getLegalAdvice()" id="legalBtn">⚖️ Get Legal Guidance</button>
+        <div class="loading" id="legalLoading"><div class="spinner">🌀</div><p style="margin-top:8px">Researching your legal rights...</p></div>
+        <div class="result-box" id="legalResult"></div>
+    </div>
+    <div class="card">
+        <h2>📜 Important Farmer Laws</h2>
+        <div class="scheme-card">
+            <span class="badge badge-green">💰 Price Protection</span>
+            <h3>MSP - Minimum Support Price</h3>
+            <p>Government must buy your crop at MSP. Wheat MSP: ₹2,275/quintal (2024-25).</p>
+        </div>
+        <div class="scheme-card">
+            <span class="badge badge-blue">🏡 Land Rights</span>
+            <h3>Land Acquisition Act 2013</h3>
+            <p>No one can take your land without 4x market rate compensation.</p>
+        </div>
+        <div class="scheme-card">
+            <span class="badge badge-orange">🛒 Selling Rights</span>
+            <h3>Freedom to Sell</h3>
+            <p>You can sell directly to any buyer. NOT forced to sell only at APMC mandi.</p>
+        </div>
+        <div class="scheme-card">
+            <span class="badge badge-green">📞 Helplines</span>
+            <h3>Important Contacts</h3>
+            <p>
+            • Kisan Call Center: <b>1800-180-1551</b> (Free, 24/7)<br>
+            • PM-KISAN Helpline: <b>155261</b><br>
+            • Crop Insurance: <b>1800-200-7710</b>
+            </p>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script src="/static/script.js"></script>
+</body>
+</html>
